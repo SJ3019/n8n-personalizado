@@ -1,0 +1,18 @@
+services:
+  n8n:
+    build: .  # 👈 en lugar de "image", indicamos que debe construirse desde el Dockerfile local
+    container_name: n8nPrueba
+    ports:
+      - "5670:5678"
+    environment:
+      - N8N_SECURE_COOKIE=false
+    volumes:
+      - ./n8n-data:/home/node/.n8n
+      - ./downloads:/downloads
+    restart: unless-stopped
+
+volumes:
+  n8n_data:
+    # Este volumen se utiliza para almacenar los datos de n8n de forma persistente
+    # y evitar que se pierdan al reiniciar el contenedor.
+    # Se puede acceder a los datos en la ruta /home/node/.n8n dentro del contenedor.
